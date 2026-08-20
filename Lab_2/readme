@@ -1,0 +1,95 @@
+# Lab 2 – Histogram Matching and CLAHE
+
+## Objective
+
+The lab focuses on two image enhancement techniques:
+
+1. Histogram Matching
+2. Contrast Limited Adaptive Histogram Equalization (CLAHE)
+
+All experiments were performed on grayscale images.
+
+## 1. Histogram Matching
+
+### Approach
+A grayscale reference image was used to create two differently exposed versions:
+
+- Source 1 – darker
+- Source 2 – brighter
+
+For each image, the following steps were implemented from first principles:
+
+Image → Histogram → PDF → CDF → CDF Mapping → Matched Image
+
+The mapping was created by finding the reference intensity whose CDF was closest to the source CDF value.
+
+### Results
+Both source images were matched to the reference distribution.
+
+The CDFs after matching were almost overlapping with the reference CDF, showing that the intensity distributions were successfully brought closer to the reference.
+
+An analytical target histogram was also created using a Gaussian distribution. The source image was matched to this mathematical target, and the resulting CDF closely followed the target CDF.
+
+### Failure Case
+A smooth grayscale gradient was matched to a reference containing mainly dark and bright intensity values.
+
+The resulting image showed an abrupt transition instead of a smooth gradient.
+
+This occurs because histogram matching considers the global intensity distribution but not the spatial arrangement of pixels. Multiple source intensities can therefore be mapped to similar output intensities.
+
+### Important Observation
+
+Histogram matching is useful when a specific reference appearance needs to be transferred. It is different from histogram equalization, which tries to redistribute intensities rather than follow a particular reference distribution.
+
+---
+
+## 2. CLAHE
+
+### Approach
+
+The same grayscale image was used for CLAHE.
+
+First, global histogram equalization was applied as a baseline. It uses one histogram for the entire image.
+
+CLAHE instead divides the image into local tiles and performs contrast enhancement locally. Contrast limiting is used to reduce excessive enhancement of dominant intensity values and noise.
+
+The experiment used an 8 × 8 tile grid with a clip limit of 2.0 as the main setting.
+
+### Global HE vs CLAHE
+
+Global histogram equalization increased the overall contrast, but some regions became very dark or very bright.
+
+CLAHE enhanced contrast locally and preserved more balanced detail across different regions of the image.
+
+### Clip Limit Analysis
+
+The following values were tested:
+
+- 1.0 – weaker enhancement
+- 2.0 – moderate enhancement
+- 4.0 – stronger enhancement
+- 8.0 – aggressive enhancement
+
+Increasing the clip limit increased the amount of local contrast enhancement. At higher values, the image became more strongly enhanced and the possibility of noise/artifacts also increased.
+
+### Tile Size Analysis
+
+The following tile sizes were tested:
+
+- 4 × 4
+- 8 × 8
+- 16 × 16
+
+Smaller tiles provide more local adaptation, while larger tiles behave more like global processing.
+
+The 8 × 8 configuration provided a reasonable balance between local enhancement and overall appearance.
+
+---
+
+## Conclusion
+
+Histogram matching successfully transferred the intensity distribution of a reference image and also worked with an analytically defined target.
+
+The failure case showed that histogram matching can produce undesirable results when the source and reference distributions are very different.
+
+CLAHE provided local contrast enhancement and gave better control than global histogram equalization. Clip limit and tile size both have a significant effect on the final result.

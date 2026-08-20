@@ -1,0 +1,82 @@
+# Lab 1 – Image Enhancement Using Transformation Functions
+
+## Aim
+
+To implement and study basic image enhancement transformation functions manually and using reusable helper functions.
+
+## Input
+
+- Image: `reference.jpg`
+- Input type: Color JPG
+- The image is first converted to grayscale before applying intensity transformations.
+
+## Transformations Used
+
+### 1. Negative Transformation
+
+Formula:
+
+[S = L - 1 - r]
+
+For an 8-bit image:
+
+[S = 255-r]
+
+It reverses the intensity levels of the image. Dark pixels become bright and bright pixels become dark.
+
+### 2. Gamma / Power-Law Transformation
+
+Formula:
+
+[S = c(r^\gamma)]
+
+The pixel value is normalized before applying the transformation.
+
+In this experiment, `γ = 0.5` was used. A gamma value less than 1 generally makes darker regions brighter.
+
+### 3. Log Transformation
+
+Formula:
+
+[S = c\log(1+r)]
+
+For an 8-bit image:
+
+[c = \frac{255}{\log(256)}]
+
+It expands lower intensity values and compresses higher intensity values, making details in darker regions more visible.
+
+## Implementation
+
+Each transformation was implemented in two ways:
+
+- **Manual implementation:** Processes every pixel using loops and directly applies the mathematical formula.
+- **Helper implementation:** Uses a reusable `ImageHelper` class and `map_pixels()` function to apply transformations to all pixels.
+
+The manual implementation helps understand the pixel-level operation, while the helper approach reduces repeated code and makes transformations easier to reuse.
+
+## Results and Analysis
+
+- **Negative:** Produced an intensity-reversed version of the grayscale image.
+- **Gamma (γ = 0.5):** Increased the brightness of darker regions.
+- **Log:** Enhanced details in darker intensity ranges while compressing brighter values.
+- The manual and helper implementations produced visually equivalent results.
+
+## Output
+
+The following results were generated:
+
+```text
+Image Output/
+├── original_grayscale.jpg
+├── negative_manual.jpg
+├── gamma_manual.jpg
+├── log_manual.jpg
+├── negative_tool.jpg
+├── gamma_tool.jpg
+└── log_tool.jpg
+```
+
+## Conclusion
+
+The experiment demonstrated how mathematical intensity transformations can be used for image enhancement. It also showed the difference between implementing transformations pixel-by-pixel and using reusable helper functions.
