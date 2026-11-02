@@ -1,0 +1,29 @@
+Task 1: Noise Suppression Using Averaging Filter
+
+As the kernel size increases, the averaging filter smooths the image more strongly.
+
+3×3: Less noise reduction, but edges and fine details are mostly preserved. 5×5: Gives better noise suppression, but some edges/details become slightly blurred. 9×9: Removes the most noise, but causes the greatest loss of edges and fine details.
+
+Trade-off: A larger kernel gives better noise reduction but more edge/detail loss. Therefore, the kernel size should be chosen to balance smoothness and image sharpness.
+
+Task 2 — Boundary Recovery via Laplacian Sharpening
+
+The 8-neighbor Laplacian recovers the obstacle edges more effectively in this image. The 4-neighbor Laplacian is sensitive mainly to intensity changes in the horizontal and vertical directions, while the 8-neighbor Laplacian also considers diagonal neighbors. Therefore, the 8-neighbor kernel detects edges in more directions and produces stronger, more complete boundary responses.
+
+The Laplacian response is added to the motion-blurred image to enhance edges:
+
+Sharpened Image=Blurred Image+Laplacian Response
+
+Task 3 — Unsharp Masking / High-Boost Design
+
+For each value:
+
+k = 1 → Unsharp masking k = 1.5 → Moderate sharpening k = 2 → Strong sharpening k = 3 → Very strong sharpening
+
+As k increases: Sharpening increases → but noise also gets amplified.
+
+Task 5 — Pipeline Recommendation
+
+Denoise → Sharpen
+
+Noisy Image ↓ 3×3 Averaging Filter ↓ High-Boost Sharpening (k = 1.5) ↓ Final AGV Image

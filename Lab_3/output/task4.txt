@@ -1,0 +1,21 @@
+### TASK 4 — OBJECTIVE EVALUATION
+
+Two objective metrics were used to evaluate the performance of different image-processing techniques.
+
+1. Peak Signal-to-Noise Ratio (PSNR):
+
+PSNR was calculated by comparing each processed image with the original clean ground-truth image. A higher PSNR indicates lower reconstruction error.
+
+2. Sharpness (Variance of Laplacian):
+
+The variance of the Laplacian was used to measure high-frequency details and edge strength. A higher value indicates stronger intensity variations but can also result from noise and sharpening artefacts.
+
+Observations:
+
+1. In Task 1, the 3×3 averaging filter achieved the highest PSNR for both noise levels among the tested configurations. Increasing the kernel size reduced sharpness and also reduced PSNR in these experiments.
+2. In Task 2, Laplacian sharpening increased the sharpness metric significantly. The 8-neighbour kernel produced a higher sharpness value than the 4-neighbour kernel, but its PSNR was lower.
+3. In Task 3, increasing the high-boost parameter k increased the sharpness value. However, PSNR decreased as k increased, indicating greater deviation from the original clean image.
+
+Conclusion:
+
+PSNR and variance of Laplacian provide complementary information about image quality. A higher sharpness value does not necessarily indicate better image quality. Therefore, both metrics should be considered when selecting an appropriate image-processing configuration.
